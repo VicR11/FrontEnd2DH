@@ -35,12 +35,32 @@ cambiarTema.addEventListener("click", alternarColorTema);
 
 function obtenerDatosDelUsuario() {
   /* --------------- PUNTO 1: Escribe tu codigo a partir de aqui --------------- */
-
-  datosPersona.nombre = prompt("Ingresa tu nombre");
-  datosPersona.edad = 2024 - parseInt(prompt("Ingresa el año en que naciste"));
-  datosPersona.ciudad = prompt("Ingresa la ciudad donde vives");
+  
+  let nombre = prompt("Ingresa tu nombre");
+  datosPersona.nombre = validarEntrada(nombre,"tu nombre"); 
+  let edad = prompt("Ingresa el año en que naciste")
+  datosPersona.edad = 2024 - parseInt(validarEntrada(edad,"numero"));
+  let ciudad = prompt("Ingresa la ciudad donde vives")
+  datosPersona.ciudad = validarEntrada(ciudad,"la ciudad donde vives");
   datosPersona.interesPorJs = confirm("Te interesa JavaScript")? "Si" : "No";
-
+ 
+  
+  function validarEntrada(datoPersona,fraseEntrada){
+    const soloLetras = /^[A-Za-z\s]+$/;
+    if(fraseEntrada != "numero"){
+        while(datoPersona === null || datoPersona === "" || !soloLetras.test(datoPersona)){
+          alert(`Debe ingresar una entrada valida`)
+          datoPersona = prompt(`Ingresa ${fraseEntrada}`);
+      }
+    }else{
+      while(datoPersona === null || datoPersona === "" || isNaN(Number(datoPersona))){
+        alert(`Debe ingresar una entrada valida`)
+        datoPersona = prompt(`Ingresa el año en que naciste`);
+      }
+    }
+      return datoPersona;  
+  }
+   
 }
 
 function renderizarDatosUsuario() {
@@ -48,10 +68,10 @@ function renderizarDatosUsuario() {
   obtenerDatosDelUsuario();
   /* --------------- PUNTO 2: Escribe tu codigo a partir de aqui --------------- */
   
-  nombre = document.querySelector("#nombre");
-  edad = document.querySelector("#edad");
-  ciudad = document.querySelector("#ciudad");
-  interesJavascript = document.querySelector("#javascript");
+  let nombre = document.querySelector("#nombre");
+  let edad = document.querySelector("#edad");
+  let ciudad = document.querySelector("#ciudad");
+  let interesJavascript = document.querySelector("#javascript");
 
   nombre.textContent = datosPersona.nombre;
   edad.textContent = datosPersona.edad;
