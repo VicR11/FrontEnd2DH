@@ -37,25 +37,26 @@ function obtenerDatosDelUsuario() {
   /* --------------- PUNTO 1: Escribe tu codigo a partir de aqui --------------- */
   
   let nombre = prompt("Ingresa tu nombre");
-  datosPersona.nombre = validarEntrada(nombre,"tu nombre"); 
+  datosPersona.nombre = validarEntrada(nombre,"tu nombre","string"); 
   let edad = prompt("Ingresa el año en que naciste")
-  datosPersona.edad = 2024 - parseInt(validarEntrada(edad,"numero"));
+  datosPersona.edad = 2024 - parseInt(validarEntrada(edad,"el año en que naciste","numero"));
   let ciudad = prompt("Ingresa la ciudad donde vives")
-  datosPersona.ciudad = validarEntrada(ciudad,"la ciudad donde vives");
+  datosPersona.ciudad = validarEntrada(ciudad,"la ciudad donde vives","string");
   datosPersona.interesPorJs = confirm("Te interesa JavaScript")? "Si" : "No";
  
   
-  function validarEntrada(datoPersona,fraseEntrada){
+  function validarEntrada(datoPersona,fraseEntrada,flag){
     const soloLetras = /^[A-Za-z\s]+$/;
-    if(fraseEntrada != "numero"){
-        while(datoPersona === null || datoPersona === "" || !soloLetras.test(datoPersona)){
+   
+    if(flag == "string"){
+        while(datoPersona === null || datoPersona === "" || !soloLetras.test(datoPersona) || datoPersona.length < 3){
           alert(`Debe ingresar una entrada valida`)
           datoPersona = prompt(`Ingresa ${fraseEntrada}`);
       }
     }else{
-      while(datoPersona === null || datoPersona === "" || isNaN(Number(datoPersona))){
+      while(datoPersona === null || datoPersona === "" || isNaN(Number(datoPersona)) || datoPersona.length < 4){
         alert(`Debe ingresar una entrada valida`)
-        datoPersona = prompt(`Ingresa el año en que naciste`);
+        datoPersona = prompt(`Ingresa ${fraseEntrada}`);
       }
     }
       return datoPersona;  
@@ -83,14 +84,14 @@ function renderizarDatosUsuario() {
 
 function recorrerListadoYRenderizarTarjetas() {
   /* ------------------ PUNTO 3: Escribe tu codigo desde aqui ------------------ */
-    divMateria = document.querySelector("#fila")
+    let divMateria = document.querySelector("#fila")
     
     if(divMateria.childElementCount ===0){
       listado.forEach((materia)=>{
-        tarjeta = document.createElement("div");
-        imagen = document.createElement("img");
-        parrafoLenguaje = document.createElement("p");
-        parrafoBimestre = document.createElement("p");
+        let tarjeta = document.createElement("div");
+        let imagen = document.createElement("img");
+        let parrafoLenguaje = document.createElement("p");
+        let parrafoBimestre = document.createElement("p");
         tarjeta.classList.add("caja")
         parrafoLenguaje.classList.add("lenguajes")
         parrafoBimestre.classList.add("bimestre")
@@ -121,7 +122,7 @@ function alternarColorTema() {
 /* --------------------- PUNTO 5: Escribe tu codigo aqui --------------------- */
   textoSobreMi =  document.getElementById("sobre-mi");
   document.addEventListener("keypress", (event) => {
-    if (event.key === "F") {
+    if (event.key === "F" || event.key === "f") {
        textoSobreMi.classList.remove("oculto")
     }
   });
